@@ -39,7 +39,7 @@ hostname_dns_info () {
 	echo $line
 	hostname=$(hostname)
 	echo "Hostname : $hostname"
-	dnsdomain=$(dnsdomainname)
+	dnsdomain=$(dnsdomainname -A)
 	echo "DNS domain : $dnsdomain"
 	fqdn=$(hostname --fqdn)
 	echo "Fully qualified domain name : $fqdn"
@@ -85,7 +85,7 @@ last_logged_in () {
 	echo $line
 	echo " List of last logged in users"
 	echo $line
-	last=$(last)
+	last=$(last | grep -v reboot)
 	echo "$last"
 	read -p "$press_enter" enter
 }
@@ -109,10 +109,17 @@ disk_usage () {
 }
 
 home_tree () {
-	./proj1.sh ~ filetree.html
+	echo $line
+	echo " Home File Tree"
+	echo $line
+	./proj1.sh ~ filetree.html 
+	lynx --dump filetree.html # display to terminal
 }
 
 process_operations () {
+	echo $line
+	echo " Process Operations"
+	echo $line
 	./proc.sh
 }
 
